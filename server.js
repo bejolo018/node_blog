@@ -2,8 +2,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const articleRouter = require('./routes/articles')
+require('dotenv/config')
 
-mongoose.connect('mongodb://localhost/blog', { useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true})
 
 app.set('view engine', 'ejs')
 

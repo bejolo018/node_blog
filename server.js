@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const Article = require('./models/article')
 const app = express()
 const articleRouter = require('./routes/articles')
 require('dotenv/config')
@@ -10,12 +11,10 @@ app.set('view engine', 'ejs')
 
 app.use(express.urlencoded({ extended: false }))
 
-app.get('/', (req, res) => {
-    const articles = [{
-        title: 'testt',
-        createdAt: new Date(),
-        description: 'testd'
-    }]
+app.get('/', async (req, res) => {
+    const articles = await Article.find().sort({
+        createdAt: 'desc'
+    })
     res.render('articles/index', {articles: articles})
 })
 
